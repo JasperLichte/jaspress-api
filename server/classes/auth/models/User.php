@@ -4,9 +4,10 @@ namespace auth\models;
 
 use auth\Login;
 use database\Connection;
+use util\interfaces\Jsonable;
 use util\interfaces\Serializable;
 
-class User implements Serializable
+class User extends Jsonable implements Serializable
 {
 
     /** @var int */
@@ -135,6 +136,13 @@ class User implements Serializable
     public function save(Connection $db)
     {
         return self::storeNew($db, $this);
+    }
+
+    public function jsonSerialize()
+    {
+        $vars = get_object_vars($this);
+
+        return $vars;
     }
 
 }
