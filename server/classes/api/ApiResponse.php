@@ -119,8 +119,6 @@ class ApiResponse
             $retVals['data'] = $this->data;
         }
 
-        header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Headers: *');
         header('Content-Type: ' . $this->format);
         http_response_code($this->statusCode);
 
