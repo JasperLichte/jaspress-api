@@ -25,9 +25,17 @@ class Request
     public function __construct()
     {
         $this->get = $_GET;
-        $this->post = $_POST;
         $this->files = $_FILES;
         $this->headers = apache_request_headers();
+
+        $inputPost = [];
+        try {
+            $data = file_get_contents('php://input');
+            if (!empty($data)) {
+                $inputPost = json_decode($data, true);
+            }
+        } catch (\Exception $e) {}
+        $this->post = array_merge($inputPost, $_POST);
     }
 
     public function getAllPost(): array
