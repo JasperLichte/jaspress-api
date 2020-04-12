@@ -1,0 +1,11 @@
+{
+    "require": {
+        "twig/twig": "^3.0",
+        "josegonzalez/dotenv": "dev-master",
+        "erusev/parsedown": "dev-master",
+      "ext-pdo": "*",
+      "ext-iconv": "*",
+      "ext-json": "*",
+      "ext-apache": "*"
+    }
+}
