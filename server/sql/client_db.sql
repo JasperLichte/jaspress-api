@@ -24,6 +24,7 @@ CREATE TABLE `pages` (
   `slug` varchar(255) NOT NULL,
   `title` text NOT NULL,
   `markdown` longtext NOT NULL,
+  `group_id` varchar(255) NOT NULL,
   `creation_date` datetime NOT NULL,
   `last_edited_date` datetime NOT NULL,
   `deleted` enum('0','1') NOT NULL DEFAULT '0'

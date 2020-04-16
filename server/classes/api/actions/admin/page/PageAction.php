@@ -23,6 +23,9 @@ abstract class PageAction extends AdminAction
     /** @var string */
     protected $content = '';
 
+    /** @var string */
+    protected $group = '';
+
     public function __construct()
     {
         parent::__construct();
@@ -39,12 +42,16 @@ abstract class PageAction extends AdminAction
         if ($this->req->issetPost('content')) {
             $this->content = $this->req->getPost('content');
         }
+        if ($this->req->issetPost('group')) {
+            $this->group = $this->req->getPost('group');
+        }
 
-        if (!empty($this->title)) {
+        if (!empty($this->title) && !empty($this->content)) {
             $this->page = new Page();
             $this->page->setSlug((string)$this->slug);
             $this->page->setTitle($this->title);
             $this->page->setMarkdown(new Markdown($this->content));
+            $this->page->setGroup($this->group);
         }
     }
 

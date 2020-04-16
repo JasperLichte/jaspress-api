@@ -30,7 +30,7 @@ class Menu
     {
         $entries = [];
 
-        // TODO load menu entries from db
+        // TODO load menu entries from sql
 
         return $entries;
     }

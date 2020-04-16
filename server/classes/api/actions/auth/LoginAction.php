@@ -18,9 +18,7 @@ class LoginAction extends AuthAction
     {
         $user = (new User())->deserialize($this->req->getAllPost());
         if ($user->isEmpty()) {
-            return $this->req->reloadWith(
-                $this->res->setErrorMessage('User cannot be empty')->status(400)
-            );
+            return $this->res->setErrorMessage('User cannot be empty')->status(400);
         }
 
         try {

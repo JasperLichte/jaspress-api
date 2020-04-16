@@ -2,10 +2,7 @@
 
 namespace content\models;
 
-
-
 use database\Connection;
-use render\components\pages\PagePage;
 use request\Url;
 use util\exceptions\EmptyMemberException;
 use util\exceptions\LogicException;
@@ -13,6 +10,9 @@ use util\interfaces\Serializable;
 
 class Page extends Content implements Serializable
 {
+
+    /** @var string */
+    private $group = '';
 
     public static function load(Connection $db, string $slug): ?Page
     {
@@ -65,11 +65,12 @@ class Page extends Content implements Serializable
         }
 
         $db()->prepare('
-REPLACE INTO pages (slug, title, markdown, creation_date, last_edited_date, deleted) 
-VALUES(?, ?, ?, NOW(), NOW(), "0")')->execute([
+REPLACE INTO pages (slug, title, markdown, group_id, creation_date, last_edited_date, deleted) 
+VALUES(?, ?, ?, ?, NOW(), NOW(), "0")')->execute([
             $this->slug,
             $this->title,
             $this->markdown->getContent(),
+            $this->group,
         ]);
 
         return $this;
@@ -83,6 +84,11 @@ VALUES(?, ?, ?, NOW(), NOW(), "0")')->execute([
     public static function delete(Connection $db, string $slug)
     {
         $db()->prepare('UPDATE pages SET deleted = "1" WHERE slug = ?')->execute([$slug]);
+    }
+
+    public function setGroup(string $group)
+    {
+        $this->group = $group;
     }
 
 }
